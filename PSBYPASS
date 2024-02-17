@@ -8,7 +8,7 @@
     <UsingTask
         TaskName = "PsCommand"
         TaskFactory = "CodeTaskFactory"
-        AssemblyFile = "c:\windows\microsoft.net\framework64\v4.0.30319\microsoft.buid.tasks.v4.0.dll">
+        AssemblyFile = "C:\Windows\Microsoft.Net\Framework64\v4.0.30319\Microsoft.Buid.Tasks.v4.0.dll">
         <Task>
             <Reference Include="System.Management.Automation" />
             <Code Type="Class" Language="cs">
@@ -28,7 +28,7 @@
                         PowerShell Ps_instance = PowerShell.Create();
 
                         //chaining commands in the pipline
-                        string script = "$ExcutionContext.SessionState.LanguageMode"
+                        string script = "$ExecutionContext.SessionState.LanguageMode";
                         Ps_instance.AddScript(script);
 
                         //invoking the pipline
@@ -45,7 +45,3 @@
                 }
 
             ]]>
-            </Code>
-        </Task>
-    </UsingTask>
-</Project>
