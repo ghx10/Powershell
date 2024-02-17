@@ -1,30 +1,31 @@
-<Project ToolsVersion="4.0" xmln="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
     </ItemGroup>
     <Target Name="PSBYPASS">
-        </PsCommand>
+        <PsCommand/>
     </Target>
+
     <UsingTask
         TaskName = "PsCommand"
         TaskFactory = "CodeTaskFactory"
-        AssemblyFile = "c:\windows\microsoft.net\framework\v4.0.30319\microsoft.buid.tasks.v4.0.dll">
+        AssemblyFile = "c:\windows\microsoft.net\framework64\v4.0.30319\microsoft.buid.tasks.v4.0.dll">
         <Task>
             <Reference Include="System.Management.Automation" />
             <Code Type="Class" Language="cs">
             <![CDATA[
                 using System;
                 using Microsoft.Build.Framework;
-                using Microsoft.Build.Utils;
-                using Powershell = System.Management.Automation.Powershell;
+                using Microsoft.Build.Utilities;
+                using PowerShell = System.Management.Automation.PowerShell;
 
-                public class Powershell: Task, ITask
+                public class PsCommand: Task, ITask
                 {
-                    public override bool Excute()
+                    public override bool Execute()
                     {
                         Console.WriteLine("Excuting Ps commands");
 
                         //creaating PowerShell pipline
-                        PowerShell Ps_instance = Powershell.Create();
+                        PowerShell Ps_instance = PowerShell.Create();
 
                         //chaining commands in the pipline
                         string script = "$ExcutionContext.SessionState.LanguageMode"
@@ -47,4 +48,4 @@
             </Code>
         </Task>
     </UsingTask>
-</Project>        
+</Project>
